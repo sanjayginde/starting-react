@@ -1,20 +1,4 @@
-.main {
-  margin: auto;
-  width: 800px;
-  padding-top: 1rem;
-}
-
-.title {
-  text-align: center;
-}
-
 th {
   text-align: left;
   font-size: x-large;
-}
-
-input {
-  width: 100%;
-  font-size: x-large;
-  padding: 0.2rem;
 }

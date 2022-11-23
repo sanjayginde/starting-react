@@ -1,6 +1,8 @@
 
 import React from 'react';
 import PropTypes from "prop-types"
+import styled from "@emotion/styled"
+
 import './App.css';
 
 const PokemonRow = ({pokemon, onSelect}) => (
@@ -58,26 +60,44 @@ PokemonRow.propTypes = {
   })
 };
 
+const Title = styled.h1`
+  text-align: center;
+`;
+
+const TwoColumnLayout = styled.div`
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-column-gap: 1rem;
+`;
+
+const Container = styled.div`
+  margin: auto;
+  width: 800px;
+  padding-top: 1rem;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  font-size: x-large;
+  padding: 0.2rem;
+`;
+
 function App() {
   const [pokemon, pokemonSet] = React.useState([])
   const [filter, filterSet] = React.useState("");
   const [selectedItem, selectedItemSet] = React.useState(null);
 
   React.useEffect(() => {
-    fetch("pokemon.json").then(response => response.json()).then(data => pokemonSet(data))
+    fetch("/starting-react/pokemon.json").then(response => response.json()).then(data => pokemonSet(data))
   }, []);
 
   return (
-    <div className="main">
-      <h1 className="title">Pokemon Search</h1>
+    <Container>
+      <Title>Pokemon Search</Title>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '70% 30%',
-        gridColumnGap: "1rem"
-      }}>
+      <TwoColumnLayout>
         <div>
-          <input value ={filter} onChange={(event) => filterSet(event.target.value)}/>
+          <Input value ={filter} onChange={(event) => filterSet(event.target.value)} />
           <table width="100%">
             <thead>
               <tr>
@@ -91,14 +111,14 @@ function App() {
                 <PokemonRow
                   key={pokemon.id}
                   pokemon={pokemon}
-                  onSelect={(pokemon) => selectedItemSet(pokemon)}/>
+                  onSelect={(pokemon) => selectedItemSet(pokemon)} />
               ))}
             </tbody>
           </table>
         </div>
         {selectedItem && <PokemonInfo {...selectedItem} />}
-      </div>
-    </div>
+      </TwoColumnLayout>
+    </Container>
   );
 }
 
